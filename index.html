@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="sumu 的隱私政策：Facebook 粉專發文工具的資料用途、本機儲存、第三方服務與刪除方式。">
+  <meta name="color-scheme" content="light">
+  <meta name="referrer" content="no-referrer">
+  <title>sumu 隱私政策 · Privacy Policy</title>
+  <style>
+    :root { color-scheme: light; --ink: #202d35; --muted: #52616b; --line: #dce5e7; --accent: #17665f; }
+    * { box-sizing: border-box; }
+    html { scroll-padding-top: 1.5rem; }
+    body { margin: 0; background: #f4f7f7; color: var(--ink); font: 1rem/1.85 system-ui, -apple-system, "Segoe UI", "Microsoft JhengHei", sans-serif; }
+    main { max-width: 880px; margin: 48px auto; padding: 48px 56px; background: #fff; border: 1px solid var(--line); border-radius: 16px; }
+    .eyebrow { margin: 0 0 10px; color: var(--accent); font-size: .82rem; font-weight: 700; letter-spacing: .12em; }
+    h1 { margin: 0; font-size: clamp(1.9rem, 6vw, 2.7rem); line-height: 1.3; letter-spacing: -.03em; }
+    .date { margin: 12px 0 24px; color: var(--muted); font-size: .9rem; }
+    .intro { margin: 0; padding: 20px 24px; background: #edf6f3; border-left: 3px solid var(--accent); border-radius: 4px; }
+    nav { display: flex; flex-wrap: wrap; gap: 8px 22px; padding: 18px 0 24px; border-bottom: 1px solid var(--line); font-size: .9rem; }
+    a { color: var(--accent); text-underline-offset: 3px; overflow-wrap: anywhere; }
+    a:hover { text-decoration-thickness: 2px; }
+    a:focus-visible { outline: 3px solid #398b82; outline-offset: 4px; border-radius: 2px; }
+    section { margin-top: 32px; }
+    h2 { margin: 0 0 12px; font-size: 1.25rem; line-height: 1.5; }
+    p { margin: 12px 0; }
+    ul, ol { margin: 12px 0; padding-left: 1.5rem; }
+    li + li { margin-top: 8px; }
+    code { padding: .1em .35em; background: #f0f3f4; border-radius: 4px; font-size: .88em; overflow-wrap: anywhere; }
+    .note { color: var(--muted); }
+    footer { margin-top: 36px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--muted); font-size: .88rem; }
+    @media (max-width: 640px) { main { margin: 0; padding: 32px 22px 40px; border: 0; border-radius: 0; } .intro { padding: 16px 18px; } }
+    @media print { body { background: white; } main { max-width: none; margin: 0; padding: 0; border: 0; } nav { display: none; } }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <p class="eyebrow">SUMU · PRIVACY POLICY</p>
+      <h1>sumu 隱私政策</h1>
+      <p class="date">生效及最後更新日期：<time datetime="2026-11-11">2026 年 11 月 11 日</time></p>
+      <p class="intro">sumu 目前用於透過 Meta Graph API，向您有權管理並授權的 Facebook 粉絲專頁發布文字或單張照片。發文工具在您的裝置上執行；本政策說明此功能如何處理資料。</p>
+    </header>
+    <nav aria-label="政策章節">
+      <a href="#data">處理的資料</a>
+      <a href="#storage">儲存方式</a>
+      <a href="#third-parties">第三方服務</a>
+      <a href="#deletion">刪除與撤銷授權</a>
+      <a href="#contact">聯絡方式</a>
+    </nav>
+
+    <section id="scope">
+      <h2>1. 適用範圍與維護者</h2>
+      <p>本政策適用於 sumu 的本機 Facebook 粉專發文功能，目前由 MoQing Facebook Publish 工具提供，並由 GitHub 帳號 <a href="https://github.com/tls0912">tls0912</a> 維護。</p>
+      <p>目前功能不提供網站會員註冊或「使用 Facebook 登入」。若日後加入新功能或改變資料處理方式，將先更新本政策。</p>
+    </section>
+
+    <section id="data">
+      <h2>2. 處理哪些資料，為什麼需要</h2>
+      <ul>
+        <li><strong>粉專 ID、名稱及 Page Access Token：</strong>用來確認目標粉專、驗證授權，並執行您要求的發布或查詢操作。Token 是 API 授權憑證，不是您的 Facebook 登入密碼。</li>
+        <li><strong>您指定的貼文文字及照片：</strong>用來預覽內容，並在您確認發布後傳送至 Meta。照片以原始檔案內容上傳；工具不會主動移除照片內的 EXIF 等中繼資料。</li>
+        <li><strong>發布結果：</strong>包括貼文或照片 ID、貼文連結，以及操作狀態，用來顯示結果與查詢已發布貼文。</li>
+        <li><strong>本機發布紀錄：</strong>保存粉專 ID、內容的 SHA-256 摘要及可取得的貼文 ID，用來防止相同內容被重複發布。</li>
+      </ul>
+      <p>本機發文工具沒有加入廣告、行為分析或開發者遙測功能，也不讀取好友名單、私人訊息或粉專留言。</p>
+    </section>
+
+    <section id="storage">
+      <h2>3. 資料存放與保護方式</h2>
+      <p>使用 Windows 本機設定功能時，粉專 ID 與受保護的 Token 存在 <code>%LOCALAPPDATA%\MoQing\FacebookPublish\credentials.json</code>。Token 使用 Windows 目前使用者的資料保護機制加密，操作時才解密至程序環境；粉專 ID 本身未加密。</p>
+      <p>也可由執行環境提供粉專 ID 與 Token。此時環境變數的保存及存取權限由您使用的作業系統或執行環境管理。</p>
+      <p>發布紀錄存於本機 <code>publications.sqlite3</code>。Windows 預設位於上述資料夾；其他支援的環境預設位於 <code>~/.local/state/moqing/facebook-publish/</code>。此紀錄未加密，不保存完整正文、照片或 Token。</p>
+      <p>草稿、照片及您另行保存的操作輸出，由您在裝置上管理。工具沒有自動刪除這些原始檔案或本機紀錄的期限。維護者沒有接收上述發文資料的伺服器，也不會因您使用工具而自動取得您的憑證或內容。</p>
+    </section>
+
+    <section id="third-parties">
+      <h2>4. 資料傳送與第三方服務</h2>
+      <ul>
+        <li><strong>Meta／Facebook：</strong>工具透過 HTTPS 將所需的授權憑證與 API 請求傳送至 Meta。發布時也會傳送您確認的文字、照片及其中的中繼資料。Meta 對資料的處理與保存依其服務條款及 <a href="https://www.facebook.com/privacy/policy/">Meta 隱私政策</a>。貼文發布後的可見範圍依 Facebook 粉專及平台設定。</li>
+        <li><strong>您選用的 AI 助理或執行客戶端：</strong>若您在對話中提供文字、照片，或讓助理執行工具，您提供的內容及工具輸出可能由該服務處理。預覽輸出包含完整貼文文字。相關留存與使用方式依您選用服務的政策；本政策不代替該服務的政策。</li>
+        <li><strong>GitHub Pages：</strong>本政策頁面由 GitHub Pages 提供。頁面本身沒有表單、分析追蹤碼、外部字型或自行設定的 Cookie。GitHub 會為安全目的記錄訪客 IP 位址，詳見 <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection">GitHub Pages 資料收集說明</a>及 <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub 隱私聲明</a>。</li>
+      </ul>
+      <p>維護者不透過本工具出售、出租或提供使用者的憑證、貼文或照片給廣告商。</p>
+    </section>
+
+    <section id="deletion">
+      <h2>5. 停止使用、撤銷授權與刪除資料</h2>
+      <ol>
+        <li><strong>停止工具使用憑證：</strong>移除本機的 <code>credentials.json</code>，並清除您自行設定的粉專 ID、Token 環境變數或其他憑證副本。刪除本機檔案不會使 Meta 已核發的 Token 自動失效。</li>
+        <li><strong>撤銷 Meta 授權：</strong>在 Facebook 設定的商業整合或應用程式管理中，移除 sumu 的相關授權。實際入口依您的帳號與 Meta 介面而定。</li>
+        <li><strong>刪除本機內容及紀錄：</strong>您可自行移除草稿、照片、保存的輸出及 <code>publications.sqlite3</code>。移除發文紀錄前，請先確認是否有結果不明的發文；移除後，工具將無法依舊紀錄阻止重複發布。</li>
+        <li><strong>刪除 Facebook 貼文：</strong>請在 Facebook 粉專刪除已發布的貼文或照片。移除本機檔案或撤銷授權，不會刪除 Facebook 上已有的內容。Meta 的資料留存依其政策處理。</li>
+      </ol>
+      <p>本機資料由您控制，維護者無法遠端替您刪除。若您曾主動向維護者提供資料，或對資料處理及刪除有疑問，可使用下方聯絡入口提出請求。</p>
+    </section>
+
+    <section id="contact">
+      <h2>6. 聯絡方式</h2>
+      <p>隱私問題及資料處理請求，請透過 <a href="https://github.com/tls0912/sumu-privacy-policy/issues">sumu 隱私政策專案的 GitHub Issues</a> 聯絡維護者。</p>
+      <p class="note">此管道需要 GitHub 帳號，且留言內容公開。請僅描述問題類型，不要張貼 Access Token、密碼、身分證明、私人聯絡資訊或未公開的貼文與照片。您無須提供上述資料才能提出一般隱私問題。</p>
+    </section>
+
+    <section id="updates">
+      <h2>7. 政策更新</h2>
+      <p>本政策如有更新，會在此網址發布並修改頁首日期。新增功能若需要其他資料或授權，將在使用該功能前說明。</p>
+    </section>
+
+    <footer>sumu · Facebook 粉專發文功能隱私政策</footer>
+  </main>
+</body>
+</html>
