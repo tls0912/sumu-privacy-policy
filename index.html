@@ -39,7 +39,7 @@
       <p class="eyebrow">SUMU · PRIVACY POLICY</p>
       <h1>sumu 隱私政策</h1>
       <p class="date">生效及最後更新日期：<time datetime="2026-11-12">2026 年 11 月 12 日</time></p>
-      <p class="intro">sumu 透過 Meta Graph API，向您有權管理並授權的 Facebook 粉絲專頁發布文字或單張照片。本政策涵蓋在您裝置上執行的本機模式，以及私人 ChatGPT Sites MCP 雲端模式。兩種模式都先提供預覽，再由您明確確認發布。</p>
+      <p class="intro">sumu 透過 Meta Graph API，向您有權管理並授權的 Facebook 粉絲專頁發布文字或照片。本政策涵蓋在您裝置上執行的本機模式，以及私人 ChatGPT Sites MCP 雲端模式。兩種模式都先提供預覽，再由您明確確認發布；憑證更新不代表授權發布貼文。</p>
     </header>
     <nav aria-label="政策章節">
       <a href="#data">處理的資料</a>
@@ -52,13 +52,14 @@
     <section id="scope">
       <h2>1. 適用範圍與維護者</h2>
       <p>本政策適用於 sumu 的 Facebook 粉專發文功能，包括 MoQing Facebook Publish 本機工具，以及供 Dot 等授權客戶端使用的私人 Sites MCP 服務，並由 GitHub 帳號 <a href="https://github.com/tls0912">tls0912</a> 維護。</p>
-      <p>sumu 不另設網站會員註冊，也不使用「使用 Facebook 登入」。私人雲端模式的身分及存取由 Sites 的擁有者私人存取政策控制；可存取服務不代表已授權發布，每次發布仍須您的明確確認。</p>
+      <p>sumu 不另設網站會員註冊。私人網站的登入與存取由 ChatGPT／Sites 的擁有者私人存取政策控制；Meta OAuth 僅用來連結 Facebook 粉專及取得 API 授權，不取代網站的私人登入。可存取服務或完成 Meta 授權不代表已核准任何貼文，每次發布仍須您的明確確認。</p>
     </section>
 
     <section id="data">
       <h2>2. 處理哪些資料，為什麼需要</h2>
       <ul>
         <li><strong>粉專 ID、名稱及 Page Access Token：</strong>用來確認目標粉專、驗證授權，並執行您要求的發布或查詢操作。Token 是 API 授權憑證，不是您的 Facebook 登入密碼。</li>
+        <li><strong>Meta 連線及憑證管理：</strong>私人雲端連結功能會短暫處理 OAuth 授權碼，並處理 User Access Token、Page Access Token、App ID、授權範圍及有效期限，用來取得指定粉專的憑證、檢查授權及在允許的情況下自動重取粉專憑證。OAuth state 與到期、已使用狀態用來防止偽造或重放回呼。App Secret 由服務管理者透過秘密設定提供，不需要貼入對話。</li>
         <li><strong>您指定的貼文文字及照片：</strong>用來預覽內容，並在您確認發布後傳送至 Meta。照片以原始檔案內容上傳；工具不會主動移除照片內的 EXIF 等中繼資料。</li>
         <li><strong>雲端身分與操作紀錄：</strong>私人雲端模式保存擁有者在該 Site 範圍內的使用者識別碼，以及完整預覽文字、粉專 ID、Graph API 版本、確認與內容及照片的摘要、預覽到期時間和發布狀態，用來限制存取、核對您確認的內容及控制預覽有效期。</li>
         <li><strong>發布結果：</strong>包括貼文或照片 ID、貼文連結，以及操作狀態，用來顯示結果與查詢已發布貼文。</li>
@@ -72,8 +73,9 @@
       <p><strong>本機模式：</strong>使用 Windows 本機設定功能時，粉專 ID 與受保護的 Token 存在 <code>%LOCALAPPDATA%\MoQing\FacebookPublish\credentials.json</code>。Token 使用 Windows 目前使用者的資料保護機制加密，操作時才解密至程序環境；粉專 ID 本身未加密。</p>
       <p>本機模式也可由執行環境提供粉專 ID 與 Token。此時環境變數的保存及存取權限由您使用的作業系統或執行環境管理。</p>
       <p>本機發布紀錄存於 <code>publications.sqlite3</code>。Windows 預設位於上述資料夾；其他支援的環境預設位於 <code>~/.local/state/moqing/facebook-publish/</code>。此紀錄未加密，不保存完整正文、照片或 Token。本機草稿、照片及您另行保存的操作輸出由您管理；工具沒有自動刪除這些檔案或本機紀錄的期限。</p>
-      <p><strong>私人雲端模式：</strong>維護者管理的服務端在 Sites 託管的 Cloudflare Workers 上執行。身分、完整預覽文字、預覽期限及發布與去重紀錄存於 D1；單張照片的原始檔案內容存於 R2，包括原檔案內的中繼資料。使用此模式會將這些資料傳送至雲端保存。</p>
-      <p>雲端 Page Access Token 由 Sites 後端的秘密設定管理，供服務端呼叫 Meta 使用；不放入原始碼、Git、前端程式或對話。私人存取由 Sites 平台控制，發布工具仍要求明確核准。</p>
+      <p><strong>私人雲端模式：</strong>維護者管理的服務端在 Sites 託管的 Cloudflare Workers 上執行。身分、完整預覽文字、預覽期限及發布與去重紀錄存於 D1；照片的原始檔案內容存於 R2，包括原檔案內的中繼資料。使用此模式會將這些資料傳送至雲端保存。</p>
+      <p>App Secret 與舊版手動設定的 Page Access Token 由 Sites 後端秘密設定管理。Meta 連線管理模式取得的 User／Page Access Token 由服務端加密後存入 D1，供服務端呼叫 Meta 使用；狀態回應只提供連線與期限資料，不回傳憑證。憑證不放入原始碼、Git、前端程式或對話。私人存取由 Sites 平台控制，發布工具仍要求明確核准。</p>
+      <p>連線管理也在 D1 保存憑證期限、更新時間、必要狀態及短期 OAuth state 驗證紀錄。憑證由服務管理者移除或重新連結時管理；驗證紀錄到期不等於資料已自動刪除，目前未承諾固定的自動清除期限。</p>
       <p>雲端預覽在建立 24 小時後失效。失效表示不能再用該預覽發布，並不表示正文、照片或紀錄已刪除。雲端草稿及照片目前未設定自動刪除期限；去重紀錄與貼文 ID 持續保存，以防止重複發布及處理結果不明的操作。</p>
       <p>若將既有本機去重紀錄透過 Sites 設定移交雲端，移交內容僅包含粉專 ID、內容摘要及可取得的貼文 ID 等去重資料，不包含完整正文、照片或 Token。</p>
     </section>
@@ -81,7 +83,7 @@
     <section id="third-parties">
       <h2>4. 資料傳送與第三方服務</h2>
       <ul>
-        <li><strong>Meta／Facebook：</strong>工具透過 HTTPS 將所需的授權憑證與 API 請求傳送至 Meta。發布時也會傳送您確認的文字、照片及其中的中繼資料。Meta 對資料的處理與保存依其服務條款及 <a href="https://www.facebook.com/privacy/policy/">Meta 隱私政策</a>。貼文發布後的可見範圍依 Facebook 粉專及平台設定。</li>
+        <li><strong>Meta／Facebook：</strong>工具透過 HTTPS 將所需的授權憑證與 API 請求傳送至 Meta。連線管理可自動檢查授權、交換允許交換的憑證或重取粉專憑證；授權過期或撤銷時仍可能需要您重新授權。這些操作不會自行發布貼文。發布時會傳送您確認的文字、照片及其中的中繼資料。Meta 對資料的處理與保存依其服務條款及 <a href="https://www.facebook.com/privacy/policy/">Meta 隱私政策</a>。貼文發布後的可見範圍依 Facebook 粉專及平台設定。</li>
         <li><strong>您選用的 AI 助理或執行客戶端：</strong>若您在對話中提供文字、照片，或讓助理執行工具，您提供的內容及工具輸出可能由該服務處理。預覽輸出包含完整貼文文字。相關留存與使用方式依您選用服務的政策；本政策不代替該服務的政策。</li>
         <li><strong>Sites／OpenAI 及其託管基礎設施：</strong>私人雲端模式透過 Sites 處理身分與服務存取，並使用 Cloudflare Workers、D1 及 R2 處理或保存上述雲端資料。這些服務供應者依各自的條款及政策處理資料；本政策不代替其政策。</li>
         <li><strong>GitHub Pages：</strong>本政策頁面由 GitHub Pages 提供。頁面本身沒有表單、分析追蹤碼、外部字型或自行設定的 Cookie。GitHub 會為安全目的記錄訪客 IP 位址，詳見 <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection">GitHub Pages 資料收集說明</a>及 <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub 隱私聲明</a>。</li>
@@ -93,7 +95,7 @@
       <h2>5. 停止使用、撤銷授權與刪除資料</h2>
       <ol>
         <li><strong>停止本機工具使用憑證：</strong>移除本機的 <code>credentials.json</code>，並清除您自行設定的粉專 ID、Token 環境變數或其他憑證副本。刪除本機檔案不會使 Meta 已核發的 Token 自動失效。</li>
-        <li><strong>停止私人雲端服務使用憑證：</strong>中斷客戶端與 MCP 服務的連線，並由服務管理者移除 Sites 後端的 Page Access Token 秘密設定。中斷連線或移除秘密設定不會使 Meta 已核發的 Token 自動失效，也不會刪除已保存的雲端資料。</li>
+        <li><strong>停止私人雲端服務使用憑證：</strong>中斷客戶端與 MCP 服務的連線，並由服務管理者移除 Sites 後端的相關憑證秘密設定及 D1 受管理憑證資料。只移除舊版 Page Access Token 秘密值，不能停止已設定的 Meta 連線管理。中斷連線或移除服務端設定不會使 Meta 已核發的 Token 自動失效，也不會刪除其他已保存的雲端資料。</li>
         <li><strong>撤銷 Meta 授權：</strong>在 Facebook 設定的商業整合或應用程式管理中，移除 sumu 的相關授權。實際入口依您的帳號與 Meta 介面而定。</li>
         <li><strong>刪除本機內容及紀錄：</strong>您可自行移除草稿、照片、保存的輸出及 <code>publications.sqlite3</code>。移除發文紀錄前，請先確認是否有結果不明的發文；移除後，工具將無法依舊紀錄阻止重複發布。</li>
         <li><strong>請求刪除雲端資料：</strong>請使用下方聯絡入口，僅描述要處理的資料類型。預覽失效、移除本機檔案或中斷 MCP 連線都不代表雲端資料已刪除。雲端去重紀錄與貼文 ID 持續保存；移除這些紀錄前須先核對結果不明的發文，以免重複發布。</li>
